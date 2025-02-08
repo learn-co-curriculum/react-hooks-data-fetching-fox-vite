@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import foxLogo from '../assets/fox-logo.png'
 
 const API_URL = "https://randomfox.ca/floof/"
