@@ -25,12 +25,28 @@ function FoxImage() {
 
   }, []); 
 
+  function fetchNewImage() {
+    setLoading(true)
+    fetch(API_URL)
+    .then(response => {
+      if (!response.ok) { throw new Error("Failed to fetch image"); }
+      return response.json();
+    })
+    .then(data => {
+      setImage(data.image); 
+      setLoading(false);
+    })
+    .catch(error => console.log(error)); 
+
+  }
+
 
   return (
     <div>
       <p>Learn more about us!</p>
       {loading ? "" : <p> Loading...</p>}
       <img src={image} alt="A Random Fox" />
+      <button onClick = {fetchNewImage} >Get New Fox</button>
     </div>
   );
 }
