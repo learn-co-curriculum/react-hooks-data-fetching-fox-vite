@@ -26,9 +26,9 @@ function FoxImage() {
   return (
     <div>
       <p>Learn more about us!</p>
-      {loading ? <p>Loading...</p> : null} {/* Show loading message only while fetching */}
-      <img src={image} alt="A Random Fox" /> {/* Update alt text for accessibility */}
-      <button onClick={fetchNewImage}>Get New Fox</button> {/* Button triggers image fetch */}
+      {loading ? <p>Loading...</p> : null}
+      <img src={image} alt="A Random Fox" />
+      <button onClick={fetchNewImage}>Get New Fox</button>
     </div>
   );
 }
