@@ -7,24 +7,28 @@ function FoxImage() {
   const [image, setImage] = useState(foxLogo)
   const [loading, setLoading] = useState(true); // Track whether the image is still loading
 
-  useEffect(() => {
+  function fetchNewImage() {
+    setLoading(true); // Set loading state to true while fetching new image
     fetch(API_URL)
       .then(response => {
-        if (!response.ok) { throw new Error("Failed to fetch image"); } // Error handling: "(!r.ok)" appeared to be a typo   
+        if (!response.ok) { throw new Error("Failed to fetch image"); } // Ensure response is valid
         return response.json();
       })
       .then(data => {
-        setImage(data.image); // Set new image from API response
-        setLoading(false); // Set loading to false once image is loaded
+        setImage(data.image); // Set new image URL from response
+        setLoading(false); // Image has loaded, stop loading state
       })
-      .catch(error => console.log(error));
-  }, []);
+      .catch(error => console.log(error)); // Handle fetch errors
+  }
+
+  useEffect(fetchNewImage, []); // Fetch a new image when component mounts
   
   return (
     <div>
       <p>Learn more about us!</p>
-      {loading ? <p>Loading...</p> : null} {/* Show loading message while image is loading */}
+      {loading ? <p>Loading...</p> : null} {/* Show loading message only while fetching */}
       <img src={image} alt="A Random Fox" /> {/* Update alt text for accessibility */}
+      <button onClick={fetchNewImage}>Get New Fox</button> {/* Button triggers image fetch */}
     </div>
   );
 }
