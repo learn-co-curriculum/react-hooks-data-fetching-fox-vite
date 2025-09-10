@@ -1,0 +1,6 @@
+{
+  "items": [
+    { "id": 1, "name": "Fox #1", "image": "https://randomfox.ca/images/1.jpg" },
+    { "id": 2, "name": "Fox #2", "image": "https://randomfox.ca/images/2.jpg" }
+  ]
+}
