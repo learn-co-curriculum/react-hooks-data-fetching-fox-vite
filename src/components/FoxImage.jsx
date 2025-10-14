@@ -14,7 +14,7 @@ function FoxImage() {
         }
         return r.json();
       })
-      .then((data) => console.log(data))
+      .then((foxImageData) => setImage(foxImageData.image))
       .catch((err) => console.error(err));
   }, []);
 
