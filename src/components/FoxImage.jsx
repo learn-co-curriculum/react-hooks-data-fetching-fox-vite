@@ -6,41 +6,24 @@ const API_URL = "https://randomfox.ca/floof/"
 function FoxImage() {
   const [image, setImage] = useState(foxLogo)
   const [loading, setLoading] = useState(true)
-  
-  const fetchNewImage = () => {
-    setLoading(true)
+
+  function fetchNewImage() {
+    setLoading(true);
     fetch(API_URL)
       .then(response => {
         if (!response.ok) { throw new Error("Failed to fetch image"); }
         return response.json();
       })
       .then(data => {
-        setImage(data.image)
-        setLoading(false)
+        setImage(data.image);
+        setLoading(false);
       })
-      .catch(error => {
-        console.log(error)
-        setLoading(false)
-      });
+      .catch(error => console.log(error));
   }
 
-  useEffect(() => {
-    fetch(API_URL)
-      .then(response => {
-        if (!response.ok) { throw new Error("Failed to fetch image"); }
-      return response.json();
-      })
-      .then(data => {
-        setImage(data.image)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.log(error)
-        setLoading(false)
-      });
-    }, []);
-
-    return (
+  useEffect(fetchNewImage, []);
+  
+  return (
     <div>
       <p>Learn more about us!</p>
       {loading ? <p>Loading...</p> : ""}
