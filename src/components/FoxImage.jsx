@@ -7,7 +7,11 @@ function FoxImage() {
   const [image, setImage] = useState(foxLogo)
   const [loading, setLoading] =useState(true);
 
-  useEffect(()=>{
+  
+    //function to fetch new fox image on button click
+  function fetchNewImage(){
+    setLoading(true)
+  
     
   fetch(API_URL)
     .then(response=>{
@@ -20,17 +24,24 @@ function FoxImage() {
       setImage(data.image)
       setLoading(false);
     }))
-    .catch(error=>{
-      console.log(error);
-      
-    })
-},[]);//pass empty dependency array to ensure fetch request is only triggerd once
+    .catch(error=>
+      console.log(error)
+    );
+  }
+
+// Fetch once on mount
+  useEffect(() => {
+    fetchNewImage();
+  }, []);
+
   
   return (
     <div>
       <p>Learn more about us!</p>
       {loading?<p>Loading...</p>:""}
       <img src={image} alt="fox logo" />
+
+      <button onClick={fetchNewImage}>Get new fox</button>
     </div>
   );
 }
