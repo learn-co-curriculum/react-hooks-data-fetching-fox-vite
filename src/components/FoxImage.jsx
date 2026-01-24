@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import foxLogo from '../assets/fox-logo.png'
 
 const API_URL = "https://randomfox.ca/floof/"
 
 function FoxImage() {
   const [image, setImage] = useState(foxLogo)
-  
+
   return (
     <div>
       <p>Learn more about us!</p>
