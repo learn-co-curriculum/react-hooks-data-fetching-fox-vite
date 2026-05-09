@@ -1,9 +1,10 @@
+import { useState, useEffect } from "react"
 import FoxImage from "./components/FoxImage"
 
 function App() {
   return (
     <div>
-      <h1>🦊 FoxFindr 🦊</h1>
+      <h1>🦊 FoxFind 🦊</h1>
       <FoxImage />
     </div>
   );
