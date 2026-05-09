@@ -1,15 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import foxLogo from '../assets/fox-logo.png'
 
 const API_URL = "https://randomfox.ca/floof/"
 
 function FoxImage() {
   const [image, setImage] = useState(foxLogo)
+  const [loading, setLoading] = useState(true)
   
+
+  function fetchNewImage () {
+    setLoading(true)
+    fetch(API_URL)
+    .then(r => {
+      if (!r.ok) {throw new Error("Failed to fetch iamge");}
+      return r.json();
+    })
+    .then(data => {
+      setImage(data.image);
+      setLoading(false);
+    })
+    .catch(error => console.log(error));
+  }
+  useEffect(fetchNewImage, []);
   return (
     <div>
       <p>Learn more about us!</p>
-      <img src={image} alt="fox logo" />
+      {loading ? <p>Loading...</p> : null}
+      <img src={image} alt="A Random Fox" />
+      <button onClick={fetchNewImage}>Get New Fox</button>
     </div>
   );
 }
