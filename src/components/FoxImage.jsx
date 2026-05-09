@@ -5,6 +5,7 @@ const API_URL = "https://randomfox.ca/floof/"
 
 function FoxImage() {
   const [image, setImage] = useState(foxLogo)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     fetch(API_URL)
     .then(r => {
@@ -18,7 +19,8 @@ function FoxImage() {
   return (
     <div>
       <p>Learn more about us!</p>
-      <img src={image} alt="fox logo" />
+      {loading ? <p>Loading...</p> : null}
+      <img src={image} alt="A Random Fox" />
     </div>
   );
 }
