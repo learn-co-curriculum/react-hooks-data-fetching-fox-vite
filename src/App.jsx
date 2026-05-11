@@ -1,4 +1,5 @@
 import FoxImage from "./components/FoxImage"
+import "./App.css"
 
 function App() {
   return (
