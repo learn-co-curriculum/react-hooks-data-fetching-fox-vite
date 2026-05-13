@@ -4,7 +4,8 @@ import foxLogo from '../assets/fox-logo.png'
 const API_URL = "https://randomfox.ca/floof/"
 
 function FoxImage() {
-  const [image, setImage] = useState(foxLogo)
+  const [image, setImage] = useState(foxLogo);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchFOxImage() {
@@ -17,6 +18,7 @@ function FoxImage() {
 
         const data = await response.json();
         setImage(data.image )
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -26,6 +28,7 @@ function FoxImage() {
   return (
     <div>
       <p>Learn more about us!</p>
+      {loading ?"": <p>Loading...</p>}
       <img src={image} alt="fox logo" />
     </div>
   );
