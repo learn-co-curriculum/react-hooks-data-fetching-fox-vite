@@ -1,11 +1,27 @@
-import { useState } from 'react';
-import foxLogo from '../assets/fox-logo.png'
+import { useState, useEffect } from "react";
+import foxLogo from "../assets/fox-logo.png";
 
-const API_URL = "https://randomfox.ca/floof/"
+const API_URL = "https://randomfox.ca/floof/";
 
 function FoxImage() {
-  const [image, setImage] = useState(foxLogo)
-  
+  const [image, setImage] = useState(foxLogo);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch image");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setImage(data.image);
+      })
+      .catch((error) => {
+        console.error("Error fetching image:", error);
+      });
+  }, []);
+
   return (
     <div>
       <p>Learn more about us!</p>
@@ -14,4 +30,4 @@ function FoxImage() {
   );
 }
 
-export default FoxImage
+export default FoxImage;
