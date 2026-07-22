@@ -7,18 +7,9 @@ function FoxImage() {
   const [image, setImage] = useState(foxLogo)
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    fetch(API_URL)
-    .then (r => {
-      if (!r.ok) { throw new Error("Failed to fetch image")}
-      return r.json() 
-    })
-    .then(foxImageData => {
-      setImage(foxImageData.image)
-      setLoading(false)
-    })
-    .catch(err => console.log(err))
-  }, [])
-
+    fetchNewImage()
+  }, []) 
+  
   function fetchNewImage() {
     setLoading(true)
     fetch(API_URL)
