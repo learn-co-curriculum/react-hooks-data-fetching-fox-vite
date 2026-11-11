@@ -1,37 +1,15 @@
-import { useState, useEffect } from 'react';
-import { getFoxImage } from './api';
+export const API_URL = 'https://randomfox.ca/floof/';
 
-function FoxImage() {
-  const [image, setImage] = useState('');
-  const [loading, setLoading] = useState(true);
-
-  function fetchNewImage() {
-    setLoading(true);
-    getFoxImage()
-      .then((data) => {
-        setImage(data.image);
-        setLoading(false);
-      })
-      .catch((error) => console.log(error));
+export async function getFoxImage() {
+  const response = await fetch(API_URL);
+  if (!response.ok) {
+    throw new Error('Failed to fetch a fox image.');
   }
 
-  useEffect(() => {
-    getFoxImage()
-      .then((data) => {
-        setImage(data.image);
-        setLoading(false);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  const data = await response.json();
+  if (typeof data.image !== 'string' || !data.image) {
+    throw new Error('The fox image response was invalid.');
+  }
 
-  return (
-    <div>
-      <p>Learn more about us!</p>
-      {loading ? <p>Loading...</p> : null}
-      <img src={image} alt="fox logo" />
-        <button onClick={fetchNewImage}>Get New Fox Image</button>
-    </div>
-  );
+  return data.image;
 }
-
-export default FoxImage;
