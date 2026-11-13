@@ -20,12 +20,29 @@ function FoxImage() {
     })
     .catch(error => console.log(error));
   },[])
+
+  //Button Function to fetch image
+  function fetchImage(){
+    setLoading(true)
+    fetch(API_URL)
+    .then(response => {
+      if (!response.ok){throw new Error ("Error fetching data", Error)}
+      return response.json();
+    })
+    .then (FoxImageData => {
+      setImage(FoxImageData.image);
+      setLoading(false);
+    })
+    .catch(error => console.log(error));
+
+  }
   
   return (
     <div>
       <p>Learn more about us!</p>
       {loading ? <p>Loading...</p> :""}
       <img src={image} alt="fox logo" />
+      <button onClick = {fetchImage}>Get New Fox</button>
     </div>
   );
 }
